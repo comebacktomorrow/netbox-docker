@@ -18,6 +18,9 @@ services:
       retries: 15
     volumes:
     - netbox-configuration:/etc/netbox/config:z,ro
+    - netbox-media-files:/opt/netbox/netbox/media:z,rw
+    - netbox-reports-files:/opt/netbox/netbox/reports:z,rw
+    - netbox-scripts-files:/opt/netbox/netbox/scripts:z,rw
     extends:
       file: docker-compose.yml
       service: netbox
@@ -47,4 +50,10 @@ volumes:
   netbox-redis-data:
     external: true
   netbox-redis-cache-data:
+    external: true
+  netbox-media-files:
+    external: true
+  netbox-reports-files:
+    external: true
+  netbox-scripts-files:
     external: true
