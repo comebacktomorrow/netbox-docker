@@ -17,16 +17,28 @@ services:
     healthcheck:
       retries: 15
     volumes:
-    - netbox-data/configuration:/etc/netbox/config:z,ro
-    - netbox-data/netbox-data/media:/opt/netbox/netbox/media:z,rw
-    - netbox-data/netbox-data/reports:/opt/netbox/netbox/reports:z,rw
-    - netbox-data/netbox-data/scripts/:/opt/netbox/netbox/scripts:z,rw
+    - netbox-data/netbox-data/configuration:/etc/netbox/config:z,ro
+    - netbox-data/netbox-data/netbox-data/media:/opt/netbox/netbox/media:z,rw
+    - netbox-data/netbox-data/netbox-data/reports:/opt/netbox/netbox/reports:z,rw
+    - netbox-data/netbox-data/netbox-data/scripts/:/opt/netbox/netbox/scripts:z,rw
+    extends:
+      file: docker-compose.yml
+      service: netbox
   postgres:
     volumes:
-    - netbox-data/netbox-postgres-data:/var/lib/postgresql/data
+    - netbox-data/netbox-data/netbox-postgres-data:/var/lib/postgresql/data
+    extends:
+      file: docker-compose.yml
+      service: postgres
   redis:
     volumes:
-    - netbox-data/netbox-redis-data:/data
+    - netbox-data/netbox-data/netbox-redis-data:/data
+    extends:
+      file: docker-compose.yml
+      service: redis
   redis-cache:
     volumes:
-    - netbox-data/netbox-redis-cache-data:/data
+    - netbox-data/netbox-data/netbox-redis-cache-data:/data
+    extends:
+      file: docker-compose.yml
+      service: redis-cache
